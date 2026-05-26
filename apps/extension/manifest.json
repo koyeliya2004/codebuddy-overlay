@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "CodeBuddy Overlay",
+  "version": "1.0.0",
+  "description": "AI coding assistant — capture your tab and get instant debugging help powered by Groq",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*", "https://*.github.dev/*", "http://localhost:*/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "commands": {
+    "capture-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Capture current tab for AI analysis"
+    }
+  }
+}
