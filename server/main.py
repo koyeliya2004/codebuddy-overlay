@@ -5,7 +5,6 @@ from typing import Optional, List
 import os
 import asyncio
 import httpx
-from pathlib import Path
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -22,8 +21,6 @@ app.add_middleware(
 )
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
-# Self URL for keep-alive ping (set this after Render deploys)
 SELF_URL = os.getenv("RENDER_EXTERNAL_URL", "")
 
 SYSTEM_PROMPT = """
@@ -70,29 +67,26 @@ class ChatRequest(BaseModel):
     message: str
     session_history: Optional[List[Message]] = []
 
-
-# -------- Auto wake-up keep-alive --------
 async def keep_alive():
-    """Ping self every 10 minutes so Render free tier never sleeps"""
-    await asyncio.sleep(30)  # wait 30s after startup
+    await asyncio.sleep(30)
     while True:
         try:
             if SELF_URL:
                 async with httpx.AsyncClient() as c:
                     await c.get(f"{SELF_URL}/health", timeout=10)
-                    print("[keep-alive] ping sent")
+                    print("[keep-alive] ping OK")
         except Exception as e:
-            print(f"[keep-alive] ping failed: {e}")
-        await asyncio.sleep(600)  # every 10 minutes
+            print(f"[keep-alive] failed: {e}")
+        await asyncio.sleep(600)
 
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(keep_alive())
-
+    print("CodeBuddy API started successfully!")
 
 @app.get("/")
 def root():
-    return {"status": "CodeBuddy API running", "version": "1.0.0"}
+    return {"status": "CodeBuddy API is running!", "version": "1.0.0", "endpoints": ["/analyze-screenshot", "/chat", "/health"]}
 
 @app.get("/health")
 def health():
