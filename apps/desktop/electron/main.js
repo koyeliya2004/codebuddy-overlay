@@ -3,16 +3,14 @@ const path = require('path');
 
 let mainWindow;
 let tray;
-let isVisible = true;
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
   mainWindow = new BrowserWindow({
-    width: 420,
-    height: 620,
-    x: width - 440,
-    y: height - 660,
+    width: 400,
+    height: 650,
+    x: width - 420,
+    y: Math.floor((height - 650) / 2),
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -42,25 +40,62 @@ function createTray() {
   const icon = nativeImage.createFromDataURL('data:image/png;base64,' + iconBase64);
   tray = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
-    { label: '🤖 CodeBuddy', enabled: false },
+    { label: '✨ Buddy AI', enabled: false },
     { type: 'separator' },
-    { label: 'Show / Hide (Ctrl+Shift+B)', click: toggleWindow },
+    { label: 'Show / Hide  (Ctrl+Shift+B)', click: toggleWindow },
     { label: 'Capture Screen (Ctrl+Shift+C)', click: () => mainWindow?.webContents.send('trigger-capture') },
     { type: 'separator' },
-    { label: 'Quit CodeBuddy', click: () => app.quit() }
+    { label: 'Quit', click: () => app.quit() }
   ]);
-  tray.setToolTip('CodeBuddy AI Assistant');
+  tray.setToolTip('Buddy AI Assistant');
   tray.setContextMenu(contextMenu);
   tray.on('click', toggleWindow);
 }
 
 function toggleWindow() {
   if (!mainWindow) return;
-  if (mainWindow.isVisible()) { mainWindow.hide(); isVisible = false; }
-  else { mainWindow.show(); isVisible = true; }
+  if (mainWindow.isVisible()) mainWindow.hide();
+  else mainWindow.show();
 }
 
-// No local Python server — backend is on Render cloud!
+// Hide window BEFORE capture so it doesn't appear in screenshot
+ipcMain.handle('capture-screen', async () => {
+  try {
+    mainWindow.hide();
+    await new Promise(r => setTimeout(r, 300));
+    const { desktopCapturer } = require('electron');
+    const sources = await desktopCapturer.getSources({
+      types: ['screen'],
+      thumbnailSize: { width: 1920, height: 1080 }
+    });
+    mainWindow.show();
+    if (sources.length > 0) {
+      return { success: true, preview: sources[0].thumbnail.toDataURL() };
+    }
+    return { success: false, error: 'No screen source' };
+  } catch (err) {
+    mainWindow?.show();
+    return { success: false, error: err.message };
+  }
+});
+
+// Move window to position
+ipcMain.handle('set-position', (_, x, y) => {
+  mainWindow?.setPosition(Math.round(x), Math.round(y));
+});
+
+ipcMain.handle('get-position', () => {
+  return mainWindow?.getPosition() || [0, 0];
+});
+
+ipcMain.handle('get-screen-size', () => {
+  return screen.getPrimaryDisplay().workAreaSize;
+});
+
+ipcMain.handle('minimize-app', () => mainWindow?.minimize());
+ipcMain.handle('hide-app', () => mainWindow?.hide());
+ipcMain.handle('close-app', () => mainWindow?.hide());
+
 app.whenReady().then(() => {
   createWindow();
   createTray();
@@ -72,23 +107,5 @@ app.whenReady().then(() => {
   });
 });
 
-ipcMain.handle('capture-screen', async () => {
-  try {
-    const { desktopCapturer } = require('electron');
-    const sources = await desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1920, height: 1080 } });
-    if (sources.length > 0) {
-      const thumbnail = sources[0].thumbnail;
-      return { success: true, preview: thumbnail.toDataURL() };
-    }
-    return { success: false, error: 'No screen source found' };
-  } catch (err) {
-    return { success: false, error: err.message };
-  }
-});
-
-ipcMain.handle('minimize-app', () => mainWindow?.minimize());
-ipcMain.handle('hide-app', () => mainWindow?.hide());
-ipcMain.handle('close-app', () => mainWindow?.hide());
-
-app.on('will-quit', () => { globalShortcut.unregisterAll(); });
+app.on('will-quit', () => globalShortcut.unregisterAll());
 app.on('window-all-closed', () => { /* keep in tray */ });
