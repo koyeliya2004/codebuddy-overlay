@@ -1,60 +1,141 @@
 # 🤖 CodeBuddy — AI Coding Assistant
 
-A floating AI assistant that lives on your desktop. Press a hotkey → it captures your screen → tells you exactly what's wrong and how to fix it. No setup needed.
+A floating AI assistant that lives on your desktop. Press a hotkey → it captures your screen → tells you exactly what's wrong and how to fix it. **No coding knowledge needed to install!**
 
 > Built by [Koyeliya Ghosh](https://github.com/koyeliya2004) 🚀
 
 ---
 
-## 📥 Install (For Friends — Super Easy!)
+## 📥 How to Install (Step by Step)
 
-### Step 1 — Download
-Download the latest installer:
-👉 **`CodeBuddy Setup 1.0.0.exe`** from the [Releases](../../releases) page
+### ✅ Step 1 — Download the App
 
-### Step 2 — Install
-1. Double-click the `.exe` file
-2. Windows will show a warning — click **"More info"** → **"Run anyway"** (this is normal for unsigned apps)
-3. Click **Next → Install → Finish**
-4. CodeBuddy opens automatically! 🎉
-
-### Step 3 — Use it
-1. Wait **3-5 seconds** for the dot to turn 🟢 **green** (server connecting)
-2. Press **`Ctrl+Shift+C`** OR click **📸 Capture**
-3. AI analyzes your screen and gives you the fix!
-
-> ⚠️ **First use of the day?** The server may take **~15-20 seconds** to wake up. Just wait and try again — it's free hosting!
+1. Go to the [Releases](../../releases) page (click that link)
+2. Under **Assets**, click **`CodeBuddy Setup 1.0.0.exe`**
+3. It will download to your **Downloads** folder
 
 ---
 
-## ⌨️ Shortcuts
+### ✅ Step 2 — Open the Installer
 
-| Shortcut | Action |
+1. Open your **Downloads** folder
+2. Find the file **`CodeBuddy Setup 1.0.0.exe`**
+3. **Double-click** it
+
+---
+
+### ✅ Step 3 — Handle Windows Warning
+
+Windows will show a blue warning screen saying **"Windows protected your PC"**
+
+Do this:
+1. Click **"More info"** (small text below the warning)
+2. A new button appears — click **"Run anyway"**
+
+> ℹ️ This warning is normal for small apps without an expensive certificate. The app is completely safe!
+
+---
+
+### ✅ Step 4 — Install
+
+1. A setup window opens
+2. Click **Next**
+3. Click **Install**
+4. Click **Finish**
+5. **CodeBuddy opens automatically!** 🎉
+
+---
+
+### ✅ Step 5 — Wait for Connection
+
+When CodeBuddy opens you will see a small floating window on screen.
+
+1. Look at the top — you will see a **yellow dot** and text saying **"Connecting..."**
+2. Wait **5 to 20 seconds**
+3. The dot turns **🟢 green** and says **"Ready ✓"**
+4. You are ready to use it!
+
+> ⚠️ If it stays yellow for more than 30 seconds — close and reopen the app. The free cloud server was sleeping!
+
+---
+
+### ✅ Step 6 — Capture Your Screen
+
+1. Open your code / error / terminal (whatever you want AI to look at)
+2. Press **`Ctrl + Shift + C`** on keyboard
+3. CodeBuddy takes a screenshot automatically
+4. A preview appears in the app — click **🧠 Analyze**
+5. AI gives you the full fix in seconds!
+
+---
+
+### ✅ Step 7 — Read the Answer
+
+CodeBuddy will reply with:
+
+```
+🔍 What I See     → what's on your screen
+⚠️  The Problem   → what is wrong
+🛠️  Fix Steps     → what to do (numbered steps)
+📝  Code Fix      → exact code to copy-paste
+▶️  Command       → command to run in terminal
+```
+
+---
+
+### ✅ Step 8 — Ask Follow-Up Questions
+
+You can also type in the chat box at the bottom:
+
+1. Type your question (example: *"explain this error"* or *"give me the full fixed code"*)
+2. Press **Enter**
+3. AI replies!
+
+> No need to capture screen again — it remembers the last screenshot!
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | What it does |
 |---|---|
-| `Ctrl+Shift+C` | Capture screen + analyze |
-| `Ctrl+Shift+B` | Hide / show the overlay |
-| `Enter` | Send message |
-| `Shift+Enter` | New line in message |
+| `Ctrl + Shift + C` | Capture screen and analyze |
+| `Ctrl + Shift + B` | Hide or show the overlay |
+| `Enter` | Send your message |
+| `Shift + Enter` | Add a new line in message box |
 
 ---
 
-## 🧠 How It Works
+## ❓ Common Problems & Fixes
+
+**Yellow dot / "Connecting..." for too long?**
+> Close and reopen the app. Free server was sleeping, it wakes up in ~20 sec.
+
+**Windows says "Windows protected your PC"?**
+> Click **More info** → **Run anyway**. Totally safe!
+
+**App not visible after install?**
+> Look in the **system tray** (bottom right corner of taskbar, arrow icon). Right-click the 🤖 icon → Show.
+
+**Capture button not working?**
+> Make sure you opened the app as normal user (not administrator). Try pressing `Ctrl+Shift+C` directly.
+
+---
+
+## 🧠 How It Works (Simple Version)
 
 ```
 You press Ctrl+Shift+C
         ↓
-CodeBuddy captures your screen
+CodeBuddy takes a screenshot of your screen
         ↓
-Screenshot sent to cloud server (Render)
+Sends it to AI server on the cloud
         ↓
-Groq AI (Llama 4) analyzes it
+Groq AI (Llama 4) reads your code and errors
         ↓
-Floating overlay shows:
-  🔍 What I See
-  ⚠️  The Problem
-  🛠️  Fix Steps
-  📝 Code Fix
-  ▶️  Command to Run
+Sends back a full fix with steps and code
+        ↓
+You see the answer in the floating window!
 ```
 
 **No Groq key needed. No Python needed. No CMD needed. Just install and use!**
@@ -63,42 +144,26 @@ Floating overlay shows:
 
 ## ✨ Features
 
-- 🪟 Floating always-on-top overlay — works on top of VS Code, terminal, browser
-- 📸 One-click full screen capture
-- 🧠 AI reads your errors, stack traces, logs, terminal output
-- 💬 Chat history — ask follow-up questions about the same screenshot
-- 🛠️ Structured answers: What I See → Problem → Fix Steps → Code → Command
+- 🪟 Floating window — stays on top of VS Code, browser, terminal
+- 📸 One-click screen capture
+- 🧠 AI reads errors, stack traces, logs, code, terminal output
+- 💬 Chat — ask follow-up questions
+- 🛠️ Structured answers with copy-paste code
 - 🌙 Dark premium design
 - ☁️ Cloud backend — no local server needed
 
 ---
 
-## 🤖 AI Models Used
+## 🔐 Privacy
 
-| Task | Model |
-|---|---|
-| Screenshot analysis | `meta-llama/llama-4-scout-17b-16e-instruct` |
-| Text chat | `llama-3.3-70b-versatile` |
-
----
-
-## 🗂️ Project Structure (For Developers)
-
-```
-codebuddy-overlay/
-├── apps/
-│   └── desktop/          # Electron + React frontend
-│       ├── electron/      # Main process (window, shortcuts)
-│       └── src/           # React UI (App.tsx)
-├── server/               # FastAPI backend (deployed on Render)
-│   ├── main.py           # API routes + Groq integration
-│   └── requirements.txt
-└── README.md
-```
+- Screenshot captured **only** when you press the button
+- Your Groq API key is **never** inside the app — safely on the server
+- **No screenshots stored** — sent, analyzed, discarded instantly
+- Session memory only — cleared when you close the app
 
 ---
 
-## 🛠️ Tech Stack
+## 🗂️ Tech Stack (For Developers)
 
 | Layer | Tech |
 |---|---|
@@ -109,11 +174,12 @@ codebuddy-overlay/
 | Hosting | Render (free tier) |
 | Screen capture | Electron desktopCapturer |
 
----
-
-## 🔐 Privacy
-
-- Screenshot is only captured when **you** press the button
-- API key is **never** in the app — it's safely on the server
-- No screenshots stored — sent, analyzed, discarded
-- Session memory only — cleared when you close the app
+```
+codebuddy-overlay/
+├── apps/
+│   └── desktop/          # Electron + React frontend
+│       ├── electron/      # Main process
+│       └── src/           # React UI
+├── server/               # FastAPI backend (on Render)
+└── README.md
+```
