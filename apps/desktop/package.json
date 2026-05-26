@@ -13,9 +13,17 @@
   "build": {
     "appId": "com.koyeliya.codebuddy",
     "productName": "CodeBuddy",
+    "copyright": "Koyeliya Ghosh 2026",
     "directories": {
       "output": "dist-app"
     },
+    "extraResources": [
+      {
+        "from": "../../server",
+        "to": "server",
+        "filter": ["**/*"]
+      }
+    ],
     "win": {
       "target": [
         {
@@ -23,14 +31,18 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "public/icon.ico"
+      "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "CodeBuddy"
+      "shortcutName": "CodeBuddy",
+      "runAfterFinish": true,
+      "installerHeader": "CodeBuddy AI Assistant",
+      "installerHeaderBitmap": null,
+      "deleteAppDataOnUninstall": false
     },
     "files": [
       "dist/**/*",
