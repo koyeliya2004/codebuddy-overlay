@@ -6,8 +6,38 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "vite build && electron-builder",
+    "build:win": "vite build && electron-builder --win --x64",
     "electron": "electron .",
     "vite": "vite"
+  },
+  "build": {
+    "appId": "com.koyeliya.codebuddy",
+    "productName": "CodeBuddy",
+    "directories": {
+      "output": "dist-app"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CodeBuddy"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "public/**/*",
+      "node_modules/**/*"
+    ]
   },
   "dependencies": {
     "axios": "^1.7.2",
